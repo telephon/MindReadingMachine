@@ -6,3 +6,5 @@ This machine that plays the "odds and evens" game with some external agent is in
 Its musical application allows to reinterpret a zero sum game as a non zero sum call and response pattern.
 
 (SuperCollider Quark)
+
+![ScreenShot](inside-mind-reading-machine.jpg)
