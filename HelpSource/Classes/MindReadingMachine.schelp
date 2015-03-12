@@ -43,9 +43,10 @@ The current implementation generalizes the Shannon/Hagelbarger schema and suppor
 
 Its musical application allows to reinterpret a zero sum game as a non zero sum call and response pattern.
 
-IMAGE::mind-reading-machine-paderborn-01.jpg#Shannon's machine at the computer museum in Paderborn::
 
-IMAGE::inside-mind-reading-machine.jpg#A superficial view inside Shannon's machine::
+IMAGE::mind-reading-machine-paderborn-01.png#Shannon's machine at the computer museum in Paderborn::
+
+IMAGE::inside-mind-reading-machine.png#A superficial view inside the machine.::
 
 
 CLASSMETHODS::
@@ -60,14 +61,19 @@ The size of the behavioral pattern which the machine looks for. A typical patter
 ARGUMENT::strategyClass
 By default a ShannonMindReadingStrategy, which can be subclassed to support other games. It implements two messages: differentValue (which returns the "opposite" value), and the comparison sameOrDifferent (which takes two guesses).
 
+INSTANCEMETHODS::
 
-SECTION::Stream Interface
+private::getCurrentStrategy, updateMemory, stackIsFull
+
+SUBSECTION::Stream Interface
 
 METHOD::next
 In exchange for an external input the machine returns a guess of that input. You have to trust that it generated this in advance and doesn't just look at the input directly. Alternatively, you can look at the prediction (but that would be cheating) or at the source code.
 
 ARGUMENT::call
 The call value for which the machine gives a response. This is either code::0:: or code::1::
+
+
 CODE::
 m = MindReadingMachine.new;
 m.verbose = true;
@@ -79,7 +85,7 @@ m.next(0); // then play zero
 METHOD::reset
 Reset the internal memory.
 
-SECTION::Introspection
+SUBSECTION::Introspection
 
 METHOD::prediction
 The machine always generates a prediction of the next input value, which is kept in this instance variable. You can have a look at it, but that is cheating.
@@ -101,7 +107,27 @@ m = MindReadingMachine.new;
 m.prose;
 ::
 
-SECTION::Examples
+METHOD::patternSize
+The size of the behavioral pattern which the machine looks for. See: link::#*new::.
+
+METHOD::strategyClass
+The type of strategy to look for. See: link::#*new::.
+
+
+METHOD::prev
+The previous move of the player.
+
+METHOD::stack
+The past few steps of the player (maximally link::#-patternSize::).
+
+METHOD::table
+The stored and ordered types of behavior.
+
+METHOD::verbose
+If set to true, extra information is printed to the post window.
+
+
+SUBSECTION::Examples
 CODE::
 
 (
