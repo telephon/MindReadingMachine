@@ -220,6 +220,25 @@ Pmindread : Pattern {
 	}
 }
 
+/*
+Returns both input and output, as an array.
+*/
+
+PmindreadPar : Pmindread {
 
 
+	embedInStream { arg inval;
+		var originalValue, mindReadValue;
+		var pat = pattern.collect { |x| originalValue = x };
+		var mindReadStream = Pmindread(pat, machineIndex, behaviorSize, strategyClass).asStream;
+		while {
+			mindReadValue = mindReadStream.next(inval);
+			mindReadValue.notNil
+		} {
+			inval = [originalValue, mindReadValue].yield
+		}
+	}
+
+
+}
 
